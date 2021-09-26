@@ -12,7 +12,7 @@ const Stake = () => {
   if(ips.length == 0)
   timer = setTimeout(async ()=>{
     await dapp.connectWallet();
-    ipsUpdate([{token:dapp.contracts.MockNFT.address, tokenId:  Math.floor(Math.random()*10000), stake:true}])
+    ipsUpdate([{token:dapp.contracts.MockNFT, tokenId:  Math.floor(Math.random()*10000), stake:true}])
     console.log(ips)
   }, 1000)
   return (
