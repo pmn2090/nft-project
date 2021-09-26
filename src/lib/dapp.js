@@ -123,6 +123,7 @@ class Dapp {
     async getAllIP() {
       const IPPool = contracts.IPPool;
       this.ipList = await IPPool.get_items();
+      return this.ipList;
     }
     async getAllOrders() {
       const DerivativeFactory = contracts.DerivativeFactory;
@@ -139,6 +140,7 @@ class Dapp {
       return this.servicesList;
     }
 }
-
 const dapp = new Dapp();
+
+window.dapp = dapp;
 export default dapp;
