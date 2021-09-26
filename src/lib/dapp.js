@@ -18,7 +18,6 @@ class Dapp {
 
     async connectWallet() {
       const { chainId, accounts } = await connect();
-      this.initContracts();
       this.chainId = Number(chainId);
       this.accounts = accounts;
       return { chainId, accounts }
