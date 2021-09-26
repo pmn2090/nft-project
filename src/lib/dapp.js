@@ -15,11 +15,13 @@ class Dapp {
     orderStatus;
     derivativeContract;
     derivativeTokenId;
+    orderList = [];
 
     async connectWallet() {
       const { chainId, accounts } = await connect();
       this.chainId = Number(chainId);
       this.accounts = accounts;
+      dapp.initContracts();
       return { chainId, accounts }
     }
     initContracts() {
@@ -29,6 +31,16 @@ class Dapp {
         this.contracts[name] = contracts[name].address;
       });
       return contracts;
+    }
+    async MintAndStake(to, tokenId) {
+      const MockNFT = contracts.MockNFT;
+      const IPPool = contracts.IPPool;
+      const txmint = await MockNFT.mint(to, tokenId);
+      await txmint.wait(1);
+      const txapprove = await MockNFT.approve(IPPool.address, tokenId);
+      await txapprove.wait(1);
+      const txStake = await IPPool.deposit(MockNFT.address, tokenId);
+      await txStake.wait(1);
     }
     async PlaceOrder() {
       const DerivativeFactory = contracts.DerivativeFactory;
@@ -53,8 +65,7 @@ class Dapp {
       this.orderStatus = "Pending";
       return {orderId: this.orderId, status: this.orderStatus}
     }
-    async AddDelivery() {
-      const orderId = this.orderId;
+    async AddDelivery(orderId = this.orderId) {
       const DerivativeFactory = contracts.DerivativeFactory;
       const tokenURI = "https://ipfs/xxxx";
       const tx = await DerivativeFactory.add_delivery(orderId, tokenURI); // wait tx send to network
@@ -72,8 +83,7 @@ class Dapp {
       this.orderStatus = "Deliveried";
       return {orderId: this.orderId, status: this.orderStatus, derivativeContract:this.derivativeContract, derivativeTokenId:deliveryEvent.args.derivativeTokenId}
     }
-    async CompleteOrder() {
-      const orderId = this.orderId;
+    async CompleteOrder(orderId = this.orderId) {
       const DerivativeFactory = contracts.DerivativeFactory;
       const tx = await DerivativeFactory.complete_order(orderId); // wait tx send to network
       const receipt = await tx.wait(1); // get receipt of tx, this mean tx is included in a block.
@@ -130,6 +140,7 @@ class Dapp {
       this.orderList = await DerivativeFactory.get_orders().then((orders) =>
         orders.map(ArrayToObj)
       );
+      console.log(this.orderList[0])
       return this.orderList;
     }
     async getAllServices() {

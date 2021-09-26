@@ -9,7 +9,11 @@ import {
   Button,
 } from "reactstrap";
 
+import { Link } from "react-router-dom";
+import dapp from '../lib/dapp'
+
 const CardNFT = (props) => {
+  console.log('ip:', props.ip.token, props.ip.tokenId)
   return (
     <div>
       <Card>
@@ -25,10 +29,33 @@ const CardNFT = (props) => {
           </CardTitle>
           {/* <CardSubtitle tag="h6" className="mb-2 text-muted">Card subtitle</CardSubtitle> */}
           <CardText>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+            token: {props.ip.token}
+            <br />
+            tokenId: {props.ip.tokenId.toString()}
           </CardText>
-          <Button>Stake</Button>
+          {
+            props.ip.stake ?
+              <Button
+                onClick={async () => {
+                  const { chainId, accounts } = await dapp.connectWallet();
+                  await dapp.MintAndStake(accounts[0], props.ip.tokenId)
+                  console.log("hello world", chainId, accounts)
+                }}
+              >
+                Stake IP
+              </Button> :
+              <Button
+              >
+                <Link
+                  style={{ color: "white" }}
+                  to={{
+                    pathname: '/mint',
+                    state: { ip: props.ip }
+                  }}
+                >Mint Derivation</Link>
+              </Button>
+
+          }
         </CardBody>
       </Card>
     </div>

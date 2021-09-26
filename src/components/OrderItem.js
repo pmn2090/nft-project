@@ -17,7 +17,7 @@ const OrderItem = (props) => {
           <td>@mdo</td>
           <td>
           <Button color="primary">Mint</Button>{' '}
-            <Button color="secondary">Withdraw</Button>
+          <Button color="secondary">Withdraw</Button>
           </td>
     </div>
   );

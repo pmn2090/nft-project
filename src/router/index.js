@@ -6,6 +6,7 @@ import Home from "../pages/home";
 import Stake from "../pages/stake.js";
 import Order from "../pages/order.js";
 import Mint from "../pages/mint.js";
+import IPList from "../pages/iplist";
 
 const Router = () => {
   return (
@@ -17,6 +18,7 @@ const Router = () => {
           <Route exact path={"/stake"} component={Stake} />
           <Route exact path={"/order"} component={Order} />
           <Route exact path={"/mint"} component={Mint} />
+          <Route exact path={"/iplist"} component={IPList} />
         </Switch>
         {/* <Footer /> */}
       </div>

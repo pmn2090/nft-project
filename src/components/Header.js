@@ -15,6 +15,7 @@ import dapp from '../lib/dapp'
 
 const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [account, setAccount] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -36,6 +37,13 @@ const Header = (props) => {
             </NavItem>
             <NavItem>
               <NavLink>
+                <Link to="/iplist">
+                  <h5>IP List</h5>
+                </Link>
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink>
                 <Link to="/order">
                   <h5>Order</h5>
                 </Link>
@@ -50,49 +58,19 @@ const Header = (props) => {
             </NavItem>
           </Nav>
         </Collapse>
+        {
+          account == false ?
         <Button color="primary" size="lg"
           onClick={async () => {
             const { chainId, accounts } = await dapp.connectWallet();
             dapp.initContracts();
+            setAccount(accounts[0])
             console.log("hello world",chainId, accounts)
           }}
         >
           Connect Wallet
-        </Button>
-
-        <Button color="primary" size="lg"
-          onClick={async () => {
-            const order = await dapp.PlaceOrder();
-            console.log(order)
-          }}
-        >
-          PlaceOrder
-        </Button>
-
-        <Button color="primary" size="lg"
-          onClick={async () => {
-            const order = await dapp.AddDelivery();
-            console.log(order)
-          }}
-        >
-          AddDelivery
-        </Button>
-        <Button color="primary" size="lg"
-          onClick={async () => {
-            const order = await dapp.CompleteOrder();
-            console.log(order)
-          }}
-        >
-          CompleteOrder
-        </Button>
-        <Button color="primary" size="lg"
-          onClick={async () => {
-            const orders = await dapp.getAllOrders();
-            console.log(orders)
-          }}
-        >
-          getAllOrders
-        </Button>
+        </Button> : <span>account:{account}</span>
+        }
       </Navbar>
 
     </div>
