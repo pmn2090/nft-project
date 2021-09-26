@@ -1,0 +1,58 @@
+{
+    "HarmonyTest": {
+        "chainId": "0x6357d2e0",
+        "chainName": "HmyTest",
+        "nativeCurrency": {
+            "name": "TestOne",
+            "symbol": "TONE",
+            "decimals": 18
+        },
+        "rpcUrls": [
+            "https://api.s1.b.hmny.io"
+        ],
+        "blockExplorerUrls": null,
+        "iconUrls": []
+    },
+    "HarmonyMain": {
+        "chainId": "0x63564c40",
+        "chainName": "HmyMain",
+        "nativeCurrency": {
+            "name": "One",
+            "symbol": "ONE",
+            "decimals": 18
+        },
+        "rpcUrls": [
+            "https://api.s0.t.hmny.io"
+        ],
+        "blockExplorerUrls": null,
+        "iconUrls": []
+    },
+    "FindoraDev": {
+        "chainId": "0x20b",
+        "chainName": "FindoraDev",
+        "nativeCurrency": {
+            "name": "FRA",
+            "symbol": "FRA",
+            "decimals": 18
+        },
+        "rpcUrls": [
+            "https://dev-evm.dev.findora.org:8545"
+        ],
+        "blockExplorerUrls": null,
+        "iconUrls": []
+    },
+    "Rinkeby": {
+        "chainId": "0x4",
+        "chainName": "Rinkeby Testnet",
+        "nativeCurrency": {
+            "name": "ETH",
+            "symbol": "ETH",
+            "decimals": 18
+        },
+        "rpcUrls": [
+            "https://rinkeby.infura.io/v3/d4e15ba154584226bdcba2f1e3ccdbde"
+        ],
+        "blockExplorerUrls": null,
+        "iconUrls": []
+    }
+}
