@@ -12,6 +12,8 @@ import {
 import { Link } from "react-router-dom";
 import dapp from '../lib/dapp'
 
+
+const sameAddress = (a, b) => a.toLocaleLowerCase() == b.toLocaleLowerCase();
 const CardNFT = (props) => {
   console.log('ip:', props.ip.token, props.ip.tokenId)
   return (
@@ -32,6 +34,8 @@ const CardNFT = (props) => {
             token: {props.ip.token}
             <br />
             tokenId: {props.ip.tokenId.toString()}
+            <br />
+            owner: {props.ip.owner}
           </CardText>
           {
             props.ip.stake ?
@@ -43,17 +47,35 @@ const CardNFT = (props) => {
                 }}
               >
                 Stake IP
-              </Button> :
-              <Button
-              >
-                <Link
-                  style={{ color: "white" }}
-                  to={{
-                    pathname: '/mint',
-                    state: { ip: props.ip }
-                  }}
-                >Mint Derivation</Link>
               </Button>
+              : <div>
+                <Button
+                >
+                  <Link
+                    style={{ color: "white" }}
+                    to={{
+                      pathname: '/mint',
+                      state: { ip: props.ip }
+                    }}
+                  >Mint Derivation</Link>
+                </Button>
+                <span>       </span>
+                <Button
+                  onClick={async () => {
+                    const { chainId, accounts } = await dapp.connectWallet();
+                    if(!sameAddress(props.ip.owner, accounts[0])) {
+                      alert("only owner can withdraw!")
+                      return;
+                    }
+                    console.log('withdraw:', props.ip.token, props.ip.tokenId)
+                    await dapp.unstake(props.ip.token, props.ip.tokenId)
+                    console.log("hello world", chainId, accounts)
+                  }}
+                >
+                  withdraw
+                </Button>
+
+              </div>
 
           }
         </CardBody>

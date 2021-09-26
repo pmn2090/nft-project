@@ -16,6 +16,7 @@ class Dapp {
     derivativeContract;
     derivativeTokenId;
     orderList = [];
+    ipList = [];
 
     async connectWallet() {
       const { chainId, accounts } = await connect();
@@ -40,6 +41,11 @@ class Dapp {
       const txapprove = await MockNFT.approve(IPPool.address, tokenId);
       await txapprove.wait(1);
       const txStake = await IPPool.deposit(MockNFT.address, tokenId);
+      await txStake.wait(1);
+    }
+    async unstake(address, tokenId) {
+      const IPPool = contracts.IPPool;
+      const txStake = await IPPool.withdraw(address, tokenId);
       await txStake.wait(1);
     }
     async PlaceOrder() {
@@ -132,7 +138,13 @@ class Dapp {
     }
     async getAllIP() {
       const IPPool = contracts.IPPool;
-      this.ipList = await IPPool.get_items();
+      this.ipList = [];
+      const ipList = await IPPool.get_items();
+      for(let i = 0; i < ipList.length; i++){
+        const ip = ipList[i];
+        const owner = await IPPool.tokenStaker(...ip)
+        this.ipList.push({...ip, owner})
+      }
       return this.ipList;
     }
     async getAllOrders() {

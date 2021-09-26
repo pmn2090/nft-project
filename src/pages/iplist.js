@@ -13,6 +13,7 @@ const IPList = (props) => {
   timer = setInterval(async ()=>{
       await dapp.connectWallet();
       const _ips = await dapp.getAllIP();
+      console.log(_ips);
       ipsUpdate([..._ips])
     }, 1000)
   return (
