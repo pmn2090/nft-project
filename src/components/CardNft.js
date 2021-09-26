@@ -20,7 +20,7 @@ const CardNFT = (props) => {
         <CardImg
           top
           width="100%"
-          src="https://news.artnet.com/app/news-upload/2021/09/Yuga-Labs-Bored-Ape-Yacht-Club-4466.jpg"
+          src="https://lh3.googleusercontent.com/CIFSHxxCbClJDYKVfGbzz4Z3PzcJMokE9Bjp4qwW5zecQIt4UkoYx2hhX1kG7V-E2Kqq_hOMFomofD48psfi880wt5d0U7515wg_ScA=s0"
           alt="Card image cap"
         />
         <CardBody>
