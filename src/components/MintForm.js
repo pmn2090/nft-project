@@ -56,7 +56,7 @@ const MintForm = (props) => {
         color="primary"
         disabled={!props.ip.token}
         onClick={async () => {
-          const orderId = await dapp.PlaceOrder();
+          const orderId = await dapp.PlaceOrder(props.ip.tokenId);
           console.log("hello world", orderId)
         }}
       >Submit</Button>

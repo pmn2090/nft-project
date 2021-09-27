@@ -48,10 +48,9 @@ class Dapp {
       const txStake = await IPPool.withdraw(address, tokenId);
       await txStake.wait(1);
     }
-    async PlaceOrder() {
+    async PlaceOrder(originalTokenId=1234) {
       const DerivativeFactory = contracts.DerivativeFactory;
       const originalNFT = contracts.MockNFT.address;
-      const originalTokenId = 1234; // this token already staked in the IP pool
       const serviceId = 0; // this service already registered
       const tx = await DerivativeFactory.place_order(
         originalNFT,
